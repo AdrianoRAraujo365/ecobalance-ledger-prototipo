@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function LoginForm({ onLogin }) {
+export default function LoginForm({ onLogin, theme, onThemeToggle }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
@@ -22,6 +22,8 @@ export default function LoginForm({ onLogin }) {
   return (
     <main className="login-wrap">
       <section className="panel login-panel" aria-labelledby="login-heading">
+        <button className="secondary" type="button" aria-label={`Ativar tema ${theme === "dark" ? "claro" : "escuro"}`}
+          aria-pressed={theme === "dark"} onClick={onThemeToggle}>{theme === "dark" ? "Tema claro" : "Tema escuro"}</button>
         <h1 id="login-heading">Entrar no EcoBalance Ledger</h1>
         <p>Acesse os indicadores e ferramentas de sustentabilidade.</p>
         <form onSubmit={submit}>

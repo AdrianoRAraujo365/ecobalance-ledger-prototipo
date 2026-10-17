@@ -2,6 +2,7 @@ const { sequelize, ESGIndicator } = require("../models");
 const ESGService = require("../services/ESGService");
 const LedgerService = require("../services/LedgerService");
 const NotificationService = require("../services/NotificationService");
+const GlobalGapService = require("../services/GlobalGapService");
 
 class ESGController {
   async list(req, res, next) {
@@ -48,6 +49,7 @@ class ESGController {
         },
         { excluirUserId: req.user.id }
       );
+      await GlobalGapService.assessAndNotify(resultado.indicador, req.user.nome);
 
       res.status(201).json({
         success: true,

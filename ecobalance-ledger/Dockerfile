@@ -3,6 +3,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install --no-audit --no-fund
 COPY clients ./clients
+COPY tailwind.config.js postcss.config.js ./
 RUN npm run build:frontends
 
 FROM node:20-alpine

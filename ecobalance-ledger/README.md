@@ -45,19 +45,23 @@ npm run build:frontends
 ```
 O build coloca os bundles em `src/public/apps`; com o servidor Express ativo, acesse `/react` ou `/vue`. Para desenvolver um cliente com hot reload, inicie o backend em um terminal e use `npm run dev:react` (porta 5173) ou `npm run dev:vue` (porta 5174). Ambos encaminham `/api/v1` e `/oauth` ao backend e usam o cookie JWT httpOnly, sem salvar tokens no navegador.
 
+A documentação interativa OpenAPI/Swagger fica em `/api-docs` e o schema JSON em `/api-docs/openapi.json`. Os clientes incluem dashboard ESG, gráficos, mapa demonstrativo, calculadora matricial, simulador de ROI com exportação PDF, ledger e notificações.
+
 ## Bibliotecas e frameworks
 
 | Camada | Tecnologia | Uso |
 |---|---|---|
 | Front-end | **Handlebars, React 18 e Vue 3** | UI MVC existente e dois clientes modulares separados, compartilhando API e autenticação |
-| Front-end | **Bootstrap 5.3** | layout, navbar, abas, formulários, tabelas, modal, toasts e tema claro/escuro da interface existente |
-| Front-end | **Tailwind 3.4** (Play CDN) | utilitários com prefixo `tw-` e sem *preflight* (convive com o Bootstrap sem conflito) |
+| Front-end | **Bootstrap 5.3** | componentes e estilos compilados junto dos clientes React/Vue e usados pela interface existente |
+| Front-end | **Tailwind CSS 3.4** | utilitários com prefixo `tw-` e sem *preflight* (convive com Bootstrap sem conflito) |
 | Front-end | **jQuery 3.7** | AJAX para a API REST, DOM e eventos na interface existente |
+| Front-end | **Chart.js 4 e Leaflet** | gráficos ESG/ROI e mapa com lista acessível de locais ilustrativos |
+| Relatórios | **jsPDF** | exportação local dos relatórios ESG e simulação de investimento |
 | Cálculo | **NumPy** (Flask) | `X = (I − A)⁻¹ D`, menores principais (Hawkins-Simons), inversa |
-| Backend | Express 4, Sequelize 6, mysql2, body-parser, express-handlebars | MVC, ORM, views |
+| Backend | Express 4, Sequelize 6, mysql2, body-parser, express-handlebars, Swagger UI Express | MVC, ORM, views e documentação OpenAPI |
 | Segurança | jsonwebtoken, bcryptjs, helmet, cors, express-validator | JWT, hash de senha, CSP, validação |
 
-> Bootstrap, jQuery e Tailwind vêm de CDN com versão fixa. O Tailwind Play CDN é indicado para **protótipo**; em produção compile o CSS (Tailwind CLI) e considere SRI nos scripts. Se o CSP do Helmet bloquear algo, ele aparece no console do navegador.
+> Os bundles React/Vue compilam Bootstrap e Tailwind localmente. A interface Handlebars legada mantém Bootstrap, jQuery e Tailwind CDN para compatibilidade.
 
 ## Perfis e permissões
 
@@ -77,6 +81,9 @@ Fonte única: `src/config/permissions.js` (usada pela API, pelas views e pelo me
 
 ## Notificações
 Internas, por usuário (`GET/PATCH /api/v1/notifications`, badge no menu). São geradas automaticamente quando: um indicador ESG é registrado (avisa Gerentes e Auditores), a integridade do ledger falha (avisa Gerentes), uma conta é criada, o perfil muda ou a senha é alterada. O Gerente (ou um sistema externo via OAuth) envia mensagens por perfil em `POST /api/v1/notifications`.
+
+### Triagem GLOBALG.A.P.
+Ao criar um indicador ESG, conformidade genérica abaixo de `GLOBALGAP_COMPLIANCE_THRESHOLD` gera uma notificação interna para Gerentes de Sustentabilidade e Auditores. O limite padrão é **80%** e pode ser alterado no `.env` (valor entre 0 e 100). Isso é apenas uma regra de triagem configurável baseada no campo genérico `conformidade`; não acessa dados da GLOBALG.A.P., não implementa seu checklist de controle e não comprova auditoria nem certificação oficial.
 
 ## OAuth 2.0 (máquina a máquina)
 Fluxo `client_credentials` (RFC 6749) e revogação (RFC 7009). O Gerente cria clientes em **Integrações** (o `client_secret` aparece uma única vez; só o hash SHA-256 é guardado).
@@ -107,9 +114,10 @@ Tokens OAuth usam `OAUTH_SECRET` (diferente do `JWT_SECRET`) e `typ=oauth`; toke
 | GET / POST / PATCH | `/oauth/clients` | `oauth:manage` |
 | GET | `/external/esg-summary` | OAuth `esg:read` |
 | POST | `/oauth/token`, `/oauth/revoke` (raiz, fora de `/api/v1`) | cliente OAuth |
+| GET | `/api-docs`, `/api-docs/openapi.json` | documentação OpenAPI |
 
 ## Acessibilidade
-Os clientes React e Vue incluem idioma `pt-BR`, navegação por teclado, link para pular ao conteúdo, rótulos associados aos campos, foco visível, erros/notificações anunciados por leitores de tela e tabelas com cabeçalhos semânticos. As permissões são verificadas no backend em cada operação; a navegação dos clientes apenas reflete essas permissões para a experiência do usuário. A interface Handlebars original também continua disponível em `/dashboard`.
+Os clientes React e Vue incluem temas claro/escuro persistentes (inicializados pela preferência do sistema), controle de tema também disponível na tela de login, navegação por teclado, link para pular ao conteúdo, rótulos associados aos campos, foco visível, erros/notificações anunciados por leitores de tela, redução de movimento e tabelas alternativas para os gráficos/mapa. As permissões são verificadas no backend em cada operação; a navegação dos clientes apenas reflete essas permissões para a experiência do usuário. A interface Handlebars original também continua disponível em `/dashboard`.
 
 ## Estrutura
 ```
@@ -117,6 +125,7 @@ migrations/  001 users · 002 esg · 003 leontief · 004 ledger · 005 notificat
 seeders/     001-admin (gerente) · 002-demo-data (SEED_DEMO=true)
 python/      app.py (Flask + NumPy), requirements.txt, Dockerfile
 clients/     react/ e vue/ (componentes, telas, API e estilos separados)
+             shared/ tema, estilos, relatórios e lógica de simulação
 src/         models · controllers · services · validators · middlewares · routes
              views (layouts, partials, páginas .hbs) · public (css, js, bundles React/Vue)
 ```

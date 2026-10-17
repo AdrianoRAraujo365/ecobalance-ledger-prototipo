@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { api } from "../api";
 import LoadFeedback from "../components/LoadFeedback.vue";
 
@@ -8,8 +8,10 @@ const rows = ref([]);
 const error = ref("");
 const loading = ref(true);
 const notice = ref("");
+const filter = ref("all");
 const canSend = (props.user.permissoes || []).includes("notifications:send");
 const form = ref({ perfil: "todos", titulo: "", mensagem: "", tipo: "info" });
+const filteredRows = computed(() => rows.value.filter((item) => filter.value === "all" || item.origem === "globalgap:triagem"));
 
 async function refresh() {
   loading.value = true;
@@ -42,6 +44,11 @@ onMounted(refresh);
   <section>
     <h1>Notificações</h1>
     <button class="secondary" type="button" @click="markAllRead">Marcar todas como lidas</button>
+    <p role="note">Alertas GLOBALG.A.P. indicam apenas triagem interna sobre o indicador genérico de conformidade; não representam auditoria ou certificação oficial.</p>
+    <div class="chart-controls" aria-label="Filtrar notificações">
+      <button class="secondary" type="button" :aria-pressed="filter === 'all'" @click="filter = 'all'">Todas</button>
+      <button class="secondary" type="button" :aria-pressed="filter === 'globalgap'" @click="filter = 'globalgap'">GLOBALG.A.P.</button>
+    </div>
     <p v-if="notice" class="success" role="status">{{ notice }}</p>
     <form v-if="canSend" class="panel form-grid" @submit.prevent="sendNotification">
       <h2>Enviar notificação</h2>
@@ -53,11 +60,11 @@ onMounted(refresh);
     </form>
     <LoadFeedback :error="error" :loading="loading" />
     <ul v-if="!loading && !error" class="notification-list">
-      <li v-for="item in rows" :key="item.id" class="panel">
+      <li v-for="item in filteredRows" :key="item.id" class="panel">
         <h2>{{ item.titulo }}</h2><p>{{ item.mensagem }}</p>
         <p>{{ item.lida ? "Lida" : "Não lida" }} · {{ new Date(item.createdAt).toLocaleString("pt-BR") }}</p>
       </li>
-      <li v-if="!rows.length">Nenhuma notificação.</li>
+      <li v-if="!filteredRows.length" role="status">Nenhuma notificação nesta visualização.</li>
     </ul>
   </section>
 </template>

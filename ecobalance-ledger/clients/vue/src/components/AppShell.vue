@@ -1,8 +1,8 @@
 <script setup>
 import { computed } from "vue";
 
-const props = defineProps({ user: { type: Object, required: true }, page: { type: String, required: true } });
-const emit = defineEmits(["navigate", "logout"]);
+const props = defineProps({ user: { type: Object, required: true }, page: { type: String, required: true }, theme: { type: String, required: true } });
+const emit = defineEmits(["navigate", "logout", "theme-toggle"]);
 const menu = [
   ["dashboard", "Visão geral"],
   ["indicators", "Indicadores ESG"],
@@ -26,7 +26,10 @@ const links = computed(() => {
       <a class="brand" href="#dashboard" @click.prevent="emit('navigate', 'dashboard')">EcoBalance Ledger</a>
       <div class="identity">
         <span>{{ user.nome }} · {{ user.perfilRotulo }}</span>
+        <button class="secondary" type="button" :aria-label="`Ativar tema ${theme === 'dark' ? 'claro' : 'escuro'}`"
+          :aria-pressed="theme === 'dark'" @click="emit('theme-toggle')">{{ theme === "dark" ? "Tema claro" : "Tema escuro" }}</button>
         <a href="/dashboard">Interface completa</a>
+        <a href="/api-docs">API</a>
         <button class="secondary" type="button" @click="emit('logout')">Sair</button>
       </div>
     </header>

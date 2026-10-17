@@ -1,6 +1,7 @@
 <script setup>
 import { computed, onMounted, ref } from "vue";
 import { api } from "./api";
+import { applyTheme, getPreferredTheme } from "../../shared/theme";
 import LoginForm from "./components/LoginForm.vue";
 import AppShell from "./components/AppShell.vue";
 import Dashboard from "./views/Dashboard.vue";
@@ -14,6 +15,7 @@ const user = ref(null);
 const page = ref("dashboard");
 const loading = ref(true);
 const error = ref("");
+const theme = ref(getPreferredTheme());
 const pages = {
   dashboard: Dashboard,
   indicators: Indicators,
@@ -25,6 +27,7 @@ const pages = {
 const currentPage = computed(() => pages[page.value] || Dashboard);
 
 onMounted(async () => {
+  applyTheme(theme.value);
   try {
     user.value = (await api("/auth/me")).data;
   } catch (reason) {
@@ -33,6 +36,11 @@ onMounted(async () => {
     loading.value = false;
   }
 });
+
+function toggleTheme() {
+  theme.value = theme.value === "dark" ? "light" : "dark";
+  applyTheme(theme.value);
+}
 
 async function login(email, senha) {
   const result = await api("/auth/login", { method: "POST", body: { email, senha } });
@@ -56,10 +64,10 @@ async function logout() {
 <template>
   <main v-if="loading" class="content" role="status">Carregando sessão…</main>
   <template v-else-if="!user">
-    <LoginForm :on-login="login" />
+    <LoginForm :on-login="login" :theme="theme" :on-theme-toggle="toggleTheme" />
     <p v-if="error" class="error" role="alert">{{ error }}</p>
   </template>
-  <AppShell v-else :user="user" :page="page" @navigate="page = $event" @logout="logout">
+  <AppShell v-else :user="user" :page="page" :theme="theme" @navigate="page = $event" @logout="logout" @theme-toggle="toggleTheme">
     <section v-if="page === 'integrations'" class="panel">
       <h1>Integrações OAuth 2.0</h1>
       <p>Gerencie clientes OAuth na interface completa.</p>

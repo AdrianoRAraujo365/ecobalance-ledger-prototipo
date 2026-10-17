@@ -3,6 +3,9 @@ import { onMounted, ref } from "vue";
 import { api, formatNumber } from "../api";
 import DataTable from "../components/DataTable.vue";
 import LoadFeedback from "../components/LoadFeedback.vue";
+import EsgCharts from "../components/EsgCharts.vue";
+import AssetMap from "../components/AssetMap.vue";
+import { downloadEsgReport } from "../../shared/report";
 
 defineProps({ user: { type: Object, required: true } });
 const summary = ref(null);
@@ -27,8 +30,12 @@ onMounted(async () => {
         <article class="panel"><h2>Score ESG mais recente</h2><p class="metric">{{ formatNumber(summary.totais.scoreUltimoAno) }}</p></article>
         <article class="panel"><h2>Variação de CO₂</h2><p class="metric">{{ summary.totais.variacaoCO2 == null ? "—" : `${formatNumber(summary.totais.variacaoCO2)}%` }}</p></article>
       </div>
-      <DataTable caption="Médias anuais dos indicadores ESG" :headers="['Ano', 'Registros', 'Score médio', 'Emissões CO₂ (t)']"
-        :rows="summary.anos.map((year) => [year.ano, year.qtd, formatNumber(year.scoreMedio), formatNumber(year.emissaoCO2)])" />
+      <button class="primary" type="button" @click="downloadEsgReport(summary)">Exportar relatório ESG em PDF</button>
+      <p role="note">Triagem GLOBALG.A.P.: indicadores genéricos de conformidade abaixo do limite configurado geram alertas internos para gerentes e auditores. Não constitui certificação oficial.</p>
+      <EsgCharts :years="summary.anos" />
+      <DataTable caption="Médias anuais dos indicadores ESG" :headers="['Ano', 'Registros', 'Score', 'CO₂ (t)', 'Reciclagem (%)', 'Diversidade (%)', 'Conformidade (%)']"
+        :rows="summary.anos.map((year) => [year.ano, year.qtd, formatNumber(year.scoreMedio), formatNumber(year.emissaoCO2), formatNumber(year.reciclagem), formatNumber(year.diversidade), formatNumber(year.conformidade)])" />
+      <AssetMap />
     </template>
   </section>
 </template>

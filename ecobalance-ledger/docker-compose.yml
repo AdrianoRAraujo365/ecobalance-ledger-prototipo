@@ -53,6 +53,7 @@ services:
       ADMIN_NOME: ${ADMIN_NOME:-Administrador EcoBalance}
       ADMIN_EMAIL: ${ADMIN_EMAIL:-adm-ecobalance@gmail.com}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:?Defina ADMIN_PASSWORD no arquivo .env}
+      GLOBALGAP_COMPLIANCE_THRESHOLD: ${GLOBALGAP_COMPLIANCE_THRESHOLD:-80}
       PYTHON_API_URL: http://python-api:5001
       PY_API_KEY: ${PY_API_KEY:?Defina PY_API_KEY no arquivo .env}
       SEED_DEMO: ${SEED_DEMO:-false}

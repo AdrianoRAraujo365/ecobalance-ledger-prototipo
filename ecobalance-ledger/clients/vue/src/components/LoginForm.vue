@@ -1,7 +1,11 @@
 <script setup>
 import { ref } from "vue";
 
-const props = defineProps({ onLogin: { type: Function, required: true } });
+const props = defineProps({
+  onLogin: { type: Function, required: true },
+  theme: { type: String, required: true },
+  onThemeToggle: { type: Function, required: true }
+});
 const email = ref("");
 const senha = ref("");
 const erro = ref("");
@@ -23,6 +27,8 @@ async function submit() {
 <template>
   <main class="login-wrap">
     <section class="panel login-panel" aria-labelledby="login-heading">
+      <button class="secondary" type="button" :aria-label="`Ativar tema ${theme === 'dark' ? 'claro' : 'escuro'}`"
+        :aria-pressed="theme === 'dark'" @click="onThemeToggle">{{ theme === "dark" ? "Tema claro" : "Tema escuro" }}</button>
       <h1 id="login-heading">Entrar no EcoBalance Ledger</h1>
       <p>Acesse os indicadores e ferramentas de sustentabilidade.</p>
       <form @submit.prevent="submit">

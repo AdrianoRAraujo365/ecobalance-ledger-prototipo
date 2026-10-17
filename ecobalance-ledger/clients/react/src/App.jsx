@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { api } from "./api";
+import { applyTheme, getPreferredTheme } from "../../shared/theme";
 import LoginForm from "./components/LoginForm";
 import AppShell from "./components/AppShell";
 import { Dashboard, Indicators, Calculator, Ledger, Notifications, Users } from "./screens";
@@ -9,6 +10,9 @@ export default function App() {
   const [page, setPage] = useState("dashboard");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [theme, setTheme] = useState(getPreferredTheme);
+
+  useEffect(() => { applyTheme(theme); }, [theme]);
 
   useEffect(() => {
     api("/auth/me")
@@ -38,7 +42,7 @@ export default function App() {
   }
 
   if (loading) return <main className="content" role="status">Carregando sessão…</main>;
-  if (!user) return <><LoginForm onLogin={login} />{error && <p className="error" role="alert">{error}</p>}</>;
+  if (!user) return <><LoginForm onLogin={login} theme={theme} onThemeToggle={() => setTheme(theme === "dark" ? "light" : "dark")} />{error && <p className="error" role="alert">{error}</p>}</>;
 
   const pages = {
     dashboard: <Dashboard user={user} />,
@@ -50,7 +54,7 @@ export default function App() {
   };
 
   return (
-    <AppShell user={user} page={page} setPage={setPage} onLogout={logout}>
+    <AppShell user={user} page={page} setPage={setPage} onLogout={logout} theme={theme} onThemeToggle={() => setTheme(theme === "dark" ? "light" : "dark")}>
       {page === "integrations"
         ? <section className="panel"><h1>Integrações OAuth 2.0</h1><p>Gerencie clientes OAuth na interface completa.</p><a href="/integracoes">Abrir integrações</a></section>
         : pages[page] || pages.dashboard}
