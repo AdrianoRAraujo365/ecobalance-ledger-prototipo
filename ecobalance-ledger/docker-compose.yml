@@ -1,0 +1,73 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: ecobalance_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root_dev_only}
+      MYSQL_DATABASE: ${DB_NAME:-ecobalance_ledger}
+      MYSQL_USER: ${DB_USER:-ecobalance}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-ecobalance123}
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  python-api:
+    build: ./python
+    container_name: ecobalance_numpy
+    restart: unless-stopped
+    environment:
+      PY_API_KEY: ${PY_API_KEY:?Defina PY_API_KEY no arquivo .env}
+    # Sem "ports": acessível apenas pela rede interna do Compose
+
+  app:
+    build: .
+    container_name: ecobalance_app
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+      python-api:
+        condition: service_started
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      APP_PORT: 3000
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: ${DB_NAME:-ecobalance_ledger}
+      DB_USER: ${DB_USER:-ecobalance}
+      DB_PASSWORD: ${DB_PASSWORD:-ecobalance123}
+      JWT_SECRET: ${JWT_SECRET:?Defina JWT_SECRET no arquivo .env}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-8h}
+      OAUTH_SECRET: ${OAUTH_SECRET:?Defina OAUTH_SECRET no arquivo .env}
+      OAUTH_ACCESS_TTL: ${OAUTH_ACCESS_TTL:-3600}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      ADMIN_NOME: ${ADMIN_NOME:-Administrador EcoBalance}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-adm-ecobalance@gmail.com}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?Defina ADMIN_PASSWORD no arquivo .env}
+      PYTHON_API_URL: http://python-api:5001
+      PY_API_KEY: ${PY_API_KEY:?Defina PY_API_KEY no arquivo .env}
+      SEED_DEMO: ${SEED_DEMO:-false}
+      SEED_DEMO_PASSWORD: ${SEED_DEMO_PASSWORD:-}
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: ecobalance_phpmyadmin
+    profiles: ["tools"]
+    depends_on:
+      - mysql
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: mysql
+
+volumes:
+  mysql_data:

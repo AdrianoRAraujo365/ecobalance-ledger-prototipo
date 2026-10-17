@@ -1,0 +1,36 @@
+<section class="container py-4">
+  <div class="mb-3"><p class="eb-mono text-success text-uppercase small mb-0">Governança</p><h1 class="h2 mb-0">Indicadores ESG</h1></div>
+
+  {{#if can.writeESG}}
+  <div class="card mb-3"><div class="card-body">
+    <h2 class="h5">Novo indicador</h2>
+    <p class="text-body-secondary small">Cada indicador gera o score ESG e um bloco no ledger. Score = Ambiental×0,35 + Circularidade×0,15 + Social×0,20 + Governança×0,30, com Ambiental = máx(0, 100 − CO₂/20).</p>
+    <form id="esgForm">
+      <div class="row g-3">
+        <div class="col-6 col-md-3"><label class="form-label" for="ano">Ano</label><input class="form-control" id="ano" name="ano" type="number" min="2000" max="2100" value="2026" required></div>
+        <div class="col-6 col-md-3"><label class="form-label" for="setor">Setor</label><input class="form-control" id="setor" name="setor" type="text" maxlength="120" placeholder="Ex.: Data Center" required></div>
+        <div class="col-6 col-md-3"><label class="form-label" for="consumoEnergia">Energia (kWh)</label><input class="form-control" id="consumoEnergia" name="consumoEnergia" type="number" min="0" step="any" required></div>
+        <div class="col-6 col-md-3"><label class="form-label" for="consumoAgua">Água (m³)</label><input class="form-control" id="consumoAgua" name="consumoAgua" type="number" min="0" step="any" required></div>
+        <div class="col-6 col-md-3"><label class="form-label" for="emissaoCO2">CO₂ (t)</label><input class="form-control" id="emissaoCO2" name="emissaoCO2" type="number" min="0" step="any" required></div>
+        <div class="col-6 col-md-3"><label class="form-label" for="residuosEletronicosKg">Resíduos eletrônicos (kg)</label><input class="form-control" id="residuosEletronicosKg" name="residuosEletronicosKg" type="number" min="0" step="any" required></div>
+        <div class="col-4 col-md-2"><label class="form-label" for="reciclagem">Reciclagem %</label><input class="form-control" id="reciclagem" name="reciclagem" type="number" min="0" max="100" step="any" required></div>
+        <div class="col-4 col-md-2"><label class="form-label" for="diversidade">Diversidade %</label><input class="form-control" id="diversidade" name="diversidade" type="number" min="0" max="100" step="any" required></div>
+        <div class="col-4 col-md-2"><label class="form-label" for="conformidade">Conformidade %</label><input class="form-control" id="conformidade" name="conformidade" type="number" min="0" max="100" step="any" required></div>
+      </div>
+      <div id="formError" class="alert alert-danger mt-3" role="alert" hidden></div>
+      <button class="btn btn-success mt-3" type="submit" id="submitBtn">Registrar indicador</button>
+    </form>
+  </div></div>
+  {{/if}}
+
+  <div class="card"><div class="card-body">
+    <h2 class="h5">Indicadores registrados</h2>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <caption class="visually-hidden">Lista de indicadores ESG</caption>
+        <thead><tr><th scope="col">Ano</th><th scope="col">Setor</th><th scope="col" class="text-end">Energia</th><th scope="col" class="text-end">Água</th><th scope="col" class="text-end">CO₂ (t)</th><th scope="col" class="text-end">Resíduos (kg)</th><th scope="col" class="text-end">Recicl. %</th><th scope="col" class="text-end">Divers. %</th><th scope="col" class="text-end">Conform. %</th><th scope="col" class="text-end">Score</th></tr></thead>
+        <tbody id="esgBody"><tr><td colspan="10" class="text-body-secondary">Carregando…</td></tr></tbody>
+      </table>
+    </div>
+  </div></div>
+</section>

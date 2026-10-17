@@ -1,0 +1,65 @@
+<section class="eb-hero py-5">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-7">
+        <span class="badge rounded-pill text-success-emphasis bg-success-subtle border border-success-subtle eb-mono mb-3">ISO 14001 · IFRS S2 · GRI 305 · TI Verde</span>
+        <h1 class="display-4 fw-bold lh-sm">A <span class="tw-bg-gradient-to-r tw-from-emerald-400 tw-to-sky-400 tw-bg-clip-text tw-text-transparent">Matemática</span> da <span class="text-success">Sustentabilidade</span></h1>
+        <p class="lead text-body-secondary">Calculadora sustentável com Modelo de Insumo-Produto de Leontief, score ESG e registro encadeado SHA-256. Transforme ineficiência em oportunidade, com dados auditáveis.</p>
+        <div class="d-flex flex-wrap gap-2 my-4">
+          {{#if user}}
+            <a class="btn btn-success btn-lg" href="/calculadora">Abrir calculadora</a>
+            <a class="btn btn-outline-success btn-lg" href="/dashboard">Dashboard</a>
+          {{else}}
+            <a class="btn btn-success btn-lg" href="/register">Começar agora</a>
+            <a class="btn btn-outline-success btn-lg" href="/login">Entrar</a>
+          {{/if}}
+        </div>
+        <dl class="row g-3 mb-0">
+          <div class="col-auto"><dt class="small text-body-secondary fw-normal">Análise decenal</dt><dd class="h3 text-success mb-0">2015–2026</dd></div>
+          <div class="col-auto"><dt class="small text-body-secondary fw-normal">Perfis de acesso</dt><dd class="h3 text-success mb-0">4</dd></div>
+          <div class="col-auto"><dt class="small text-body-secondary fw-normal">Autenticação</dt><dd class="h3 text-success mb-0">JWT + OAuth 2.0</dd></div>
+        </dl>
+      </div>
+      <div class="col-lg-5">
+        <div class="card eb-glass shadow">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h2 class="h5 text-success mb-0">Matriz de Leontief</h2>
+              <span class="small eb-mono text-success"><span class="eb-dot" aria-hidden="true"></span> exemplo</span>
+            </div>
+            <ul class="list-unstyled d-grid gap-2 mb-3">
+              <li class="eb-sector"><span aria-hidden="true">🔧</span><div><strong>Hardware</strong><small class="d-block text-body-secondary">insumos altos</small></div><div class="progress" role="img" aria-label="Eficiência 78%"><div class="progress-bar bg-success" style="width:78%"></div></div><b class="eb-mono text-success">78%</b></li>
+              <li class="eb-sector"><span aria-hidden="true">☁️</span><div><strong>Cloud/Data</strong><small class="d-block text-body-secondary">insumos médios</small></div><div class="progress" role="img" aria-label="Eficiência 82%"><div class="progress-bar bg-success" style="width:82%"></div></div><b class="eb-mono text-success">82%</b></li>
+              <li class="eb-sector"><span aria-hidden="true">🤖</span><div><strong>Automação</strong><small class="d-block text-body-secondary">insumos baixos</small></div><div class="progress" role="img" aria-label="Eficiência 88%"><div class="progress-bar bg-success" style="width:88%"></div></div><b class="eb-mono text-success">88%</b></li>
+              <li class="eb-sector"><span aria-hidden="true">🌱</span><div><strong>TI Verde</strong><small class="d-block text-body-secondary">insumos mínimos</small></div><div class="progress" role="img" aria-label="Eficiência 95%"><div class="progress-bar bg-success" style="width:95%"></div></div><b class="eb-mono text-success">95%</b></li>
+            </ul>
+            <div class="p-3 rounded border border-success-subtle bg-success-subtle text-success-emphasis"><small>Fórmula ativa</small><br><code class="fs-5 text-success-emphasis">X = (I − A)⁻¹ · D</code></div>
+            <p class="small text-body-secondary mt-2 mb-0">Valores ilustrativos de demonstração.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5 border-top border-bottom eb-alt">
+  <div class="container">
+    <h2 class="text-center">De <span class="text-danger">relatórios caóticos</span> para <span class="text-success">governança estruturada</span></h2>
+    <p class="lead text-center text-body-secondary mx-auto" style="max-width:46rem">Reduza o risco de greenwashing com dados auditáveis e projeções baseadas em álgebra linear.</p>
+    <div class="row g-4 mt-2">
+      <div class="col-md-6"><div class="card h-100 border-danger-subtle"><div class="card-body"><h3 class="h5">Antes: planilhas soltas</h3><ul class="mb-0"><li>Dados dispersos e sem rastreabilidade</li><li>Relatórios ESG difíceis de auditar</li><li>Efeitos em cadeia entre setores ignorados</li></ul></div></div></div>
+      <div class="col-md-6"><div class="card h-100 border-success-subtle"><div class="card-body"><h3 class="h5">Depois: EcoBalance Ledger</h3><ul class="mb-0"><li>Indicadores centralizados com score ESG automático</li><li>Cada registro vira um bloco com hash SHA-256 encadeado</li><li>Leontief com validação Hawkins-Simons e motor NumPy</li></ul></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-sm-6 col-lg-3" id="leontief"><div class="card h-100"><div class="card-body"><div class="eb-ico mb-2" aria-hidden="true">🧮</div><h3 class="h5">Modelo de Leontief</h3><p class="mb-0 text-body-secondary">Produção total necessária a partir da demanda final e dos coeficientes técnicos, com Hawkins-Simons.</p></div></div></div>
+      <div class="col-sm-6 col-lg-3" id="ledger"><div class="card h-100"><div class="card-body"><div class="eb-ico mb-2" aria-hidden="true">🔗</div><h3 class="h5">Ledger SHA-256</h3><p class="mb-0 text-body-secondary">Hashes encadeados detectam qualquer alteração em indicadores já registrados.</p></div></div></div>
+      <div class="col-sm-6 col-lg-3" id="esg"><div class="card h-100"><div class="card-body"><div class="eb-ico mb-2" aria-hidden="true">📊</div><h3 class="h5">Dashboard ESG</h3><p class="mb-0 text-body-secondary">Evolução 2015–2026 de CO₂, reciclagem, diversidade e conformidade, com score integrado.</p></div></div></div>
+      <div class="col-sm-6 col-lg-3"><div class="card h-100"><div class="card-body"><div class="eb-ico mb-2" aria-hidden="true">🔔</div><h3 class="h5">Notificações e OAuth 2.0</h3><p class="mb-0 text-body-secondary">Alertas internos por perfil e API para sistemas externos via <code>client_credentials</code>.</p></div></div></div>
+    </div>
+  </div>
+</section>

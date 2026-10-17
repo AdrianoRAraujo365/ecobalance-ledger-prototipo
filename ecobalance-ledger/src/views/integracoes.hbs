@@ -1,0 +1,55 @@
+<section class="container py-4">
+  <div class="mb-3"><p class="eb-mono text-success text-uppercase small mb-0">Máquina a máquina</p><h1 class="h2 mb-0">Integrações OAuth 2.0</h1></div>
+
+  <div class="card mb-3"><div class="card-body">
+    <h2 class="h5">Novo cliente</h2>
+    <p class="text-body-secondary small">Fluxo <code>client_credentials</code> (RFC 6749). O <code>client_secret</code> é exibido uma única vez.</p>
+    <form id="clientForm">
+      <div class="row g-3 align-items-end">
+        <div class="col-md-5"><label class="form-label" for="nome">Nome do sistema</label><input class="form-control" id="nome" name="nome" maxlength="120" placeholder="Ex.: ERP Fábrica" required></div>
+        <div class="col-md-5">
+          <span class="form-label d-block" id="scopesLabel">Scopes</span>
+          <div role="group" aria-labelledby="scopesLabel" class="d-flex gap-3 flex-wrap">
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="sc1" value="notifications:write" checked><label class="form-check-label" for="sc1"><code>notifications:write</code></label></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="sc2" value="esg:read"><label class="form-check-label" for="sc2"><code>esg:read</code></label></div>
+          </div>
+        </div>
+        <div class="col-md-2"><button class="btn btn-success w-100" type="submit">Criar</button></div>
+      </div>
+      <div id="formError" class="alert alert-danger mt-3" role="alert" hidden></div>
+    </form>
+    <div id="segredo" class="alert alert-warning mt-3" role="alert" hidden>
+      <strong>Guarde agora — não será exibido novamente.</strong>
+      <dl class="mb-0 mt-2"><dt>client_id</dt><dd><code id="outId"></code></dd><dt>client_secret</dt><dd><code id="outSecret" class="user-select-all"></code></dd></dl>
+    </div>
+  </div></div>
+
+  <div class="card mb-3"><div class="card-body">
+    <h2 class="h5">Clientes</h2>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <caption class="visually-hidden">Clientes OAuth</caption>
+        <thead><tr><th scope="col">Nome</th><th scope="col">client_id</th><th scope="col">Scopes</th><th scope="col">Status</th><th scope="col">Ação</th></tr></thead>
+        <tbody id="clientsBody"><tr><td colspan="5" class="text-body-secondary">Carregando…</td></tr></tbody>
+      </table>
+    </div>
+  </div></div>
+
+  <div class="card"><div class="card-body">
+    <h2 class="h5">Como usar</h2>
+<pre class="eb-pre p-3 rounded small mb-0"><code># 1) Obter o token
+curl -X POST {{origem}}/oauth/token -u CLIENT_ID:CLIENT_SECRET \
+  -d grant_type=client_credentials -d scope="notifications:write"
+
+# 2) Enviar notificação para um perfil (scope notifications:write)
+curl -X POST {{origem}}/api/v1/notifications \
+  -H "Authorization: Bearer ACCESS_TOKEN" -H "Content-Type: application/json" \
+  -d '{"perfil":"gerente_sustentabilidade","titulo":"Meta atingida","mensagem":"CO2 abaixo do limite","tipo":"sucesso"}'
+
+# 3) Ler resumo ESG (scope esg:read)
+curl {{origem}}/api/v1/external/esg-summary -H "Authorization: Bearer ACCESS_TOKEN"
+
+# 4) Revogar o token (RFC 7009)
+curl -X POST {{origem}}/oauth/revoke -u CLIENT_ID:CLIENT_SECRET -d token=ACCESS_TOKEN</code></pre>
+  </div></div>
+</section>

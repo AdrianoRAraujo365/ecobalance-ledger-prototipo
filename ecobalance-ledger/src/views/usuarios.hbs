@@ -1,0 +1,33 @@
+<section class="container py-4" id="usuariosApp" data-can-write="{{#if can.writeUsers}}1{{else}}0{{/if}}" data-me="{{user.email}}">
+  <div class="mb-3"><p class="eb-mono text-success text-uppercase small mb-0">Administração</p><h1 class="h2 mb-0">Usuários</h1></div>
+
+  {{#if can.writeUsers}}
+  <div class="card mb-3"><div class="card-body">
+    <h2 class="h5">Criar usuário</h2>
+    <form id="userForm">
+      <div class="row g-3">
+        <div class="col-md-3"><label class="form-label" for="nome">Nome</label><input class="form-control" id="nome" name="nome" minlength="3" maxlength="120" required></div>
+        <div class="col-md-3"><label class="form-label" for="email">E-mail</label><input class="form-control" id="email" name="email" type="email" required></div>
+        <div class="col-md-3"><label class="form-label" for="senha">Senha</label><input class="form-control" id="senha" name="senha" type="password" minlength="8" autocomplete="new-password" required></div>
+        <div class="col-md-3"><label class="form-label" for="perfil">Perfil</label>
+          <select class="form-select" id="perfil" name="perfil">
+            <option value="usuario">Usuário</option><option value="analista_dados">Analista de Dados</option><option value="auditor">Auditor ESG</option><option value="gerente_sustentabilidade">Gerente de Sustentabilidade</option>
+          </select></div>
+      </div>
+      <div id="formError" class="alert alert-danger mt-3" role="alert" hidden></div>
+      <button class="btn btn-success mt-3" type="submit">Criar</button>
+    </form>
+  </div></div>
+  {{/if}}
+
+  <div class="card"><div class="card-body">
+    <h2 class="h5">Usuários cadastrados</h2>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <caption class="visually-hidden">Lista de usuários</caption>
+        <thead><tr><th scope="col">Nome</th><th scope="col">E-mail</th><th scope="col">Perfil</th><th scope="col">Status</th><th scope="col">Criado em</th></tr></thead>
+        <tbody id="usuariosBody"><tr><td colspan="5" class="text-body-secondary">Carregando…</td></tr></tbody>
+      </table>
+    </div>
+  </div></div>
+</section>

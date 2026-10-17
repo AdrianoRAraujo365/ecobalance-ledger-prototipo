@@ -1,0 +1,48 @@
+<header class="sticky-top">
+  <nav class="navbar navbar-expand-lg eb-nav border-bottom" aria-label="Principal">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="/" aria-label="EcoBalance Ledger - início">
+        <span class="eb-logo" aria-hidden="true">🌿</span>
+        <span class="lh-sm"><strong>EcoBalance Ledger</strong><small class="d-block text-body-secondary eb-mono" style="font-size:.7rem">v1.0 · Ledger SHA-256</small></span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Abrir menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+          {{#if user}}
+            <li class="nav-item"><a class="nav-link{{#if (eq active "dashboard")}} active{{/if}}" href="/dashboard"{{#if (eq active "dashboard")}} aria-current="page"{{/if}}>Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link{{#if (eq active "calculadora")}} active{{/if}}" href="/calculadora"{{#if (eq active "calculadora")}} aria-current="page"{{/if}}>Calculadora</a></li>
+            <li class="nav-item"><a class="nav-link{{#if (eq active "esg")}} active{{/if}}" href="/esg"{{#if (eq active "esg")}} aria-current="page"{{/if}}>Indicadores</a></li>
+            <li class="nav-item"><a class="nav-link{{#if (eq active "ledger")}} active{{/if}}" href="/ledger"{{#if (eq active "ledger")}} aria-current="page"{{/if}}>Ledger</a></li>
+            {{#if can.readUsers}}<li class="nav-item"><a class="nav-link{{#if (eq active "usuarios")}} active{{/if}}" href="/usuarios"{{#if (eq active "usuarios")}} aria-current="page"{{/if}}>Usuários</a></li>{{/if}}
+            {{#if can.oauth}}<li class="nav-item"><a class="nav-link{{#if (eq active "integracoes")}} active{{/if}}" href="/integracoes"{{#if (eq active "integracoes")}} aria-current="page"{{/if}}>Integrações</a></li>{{/if}}
+            <li class="nav-item"><a class="nav-link{{#if (eq active "notificacoes")}} active{{/if}}" href="/notificacoes"{{#if (eq active "notificacoes")}} aria-current="page"{{/if}}>Notificações <span id="notifBadge" class="badge text-bg-danger rounded-pill d-none" aria-live="polite">0</span></a></li>
+          {{else}}
+            <li class="nav-item"><a class="nav-link" href="/#leontief">Leontief</a></li>
+            <li class="nav-item"><a class="nav-link" href="/#ledger">Ledger</a></li>
+            <li class="nav-item"><a class="nav-link" href="/#esg">ESG</a></li>
+            <li class="nav-item"><a class="nav-link{{#if (eq active "login")}} active{{/if}}" href="/login">Entrar</a></li>
+            <li class="nav-item"><a class="btn btn-success btn-sm ms-lg-2" href="/register">Criar conta</a></li>
+          {{/if}}
+          <li class="nav-item d-flex gap-1 ms-lg-2 py-2 py-lg-0" role="group" aria-label="Acessibilidade">
+            <button id="fontDown" class="btn btn-sm btn-outline-secondary" type="button" aria-label="Diminuir fonte">A−</button>
+            <button id="fontUp" class="btn btn-sm btn-outline-secondary" type="button" aria-label="Aumentar fonte">A+</button>
+            <button id="themeToggle" class="btn btn-sm btn-outline-secondary" type="button" aria-pressed="true" aria-label="Alternar modo claro/escuro">🌓</button>
+          </li>
+          {{#if user}}
+            <li class="nav-item dropdown ms-lg-2">
+              <button class="btn btn-sm btn-outline-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{user.nome}}</button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><span class="dropdown-item-text small"><strong>{{user.perfilRotulo}}</strong><br><span class="text-body-secondary">{{user.email}}</span></span></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#senhaModal">Alterar senha</button></li>
+                <li><button id="logoutBtn" class="dropdown-item" type="button">Sair</button></li>
+              </ul>
+            </li>
+          {{/if}}
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

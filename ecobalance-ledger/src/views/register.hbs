@@ -1,0 +1,17 @@
+<section class="container py-5" style="max-width:480px">
+  <div class="card shadow">
+    <div class="card-body p-4">
+      <h1 class="h3">Criar conta</h1>
+      <p class="text-body-secondary">O cadastro público cria o perfil <strong>Usuário</strong>. Outros perfis são concedidos pelo Gerente de Sustentabilidade.</p>
+      <form id="registerForm">
+        <div class="mb-3"><label class="form-label" for="nome">Nome completo</label><input class="form-control" id="nome" name="nome" type="text" autocomplete="name" minlength="3" maxlength="120" required></div>
+        <div class="mb-3"><label class="form-label" for="email">E-mail</label><input class="form-control" id="email" name="email" type="email" autocomplete="email" required></div>
+        <div class="mb-3"><label class="form-label" for="senha">Senha</label><input class="form-control" id="senha" name="senha" type="password" autocomplete="new-password" minlength="8" required aria-describedby="senhaAjuda"><div id="senhaAjuda" class="form-text">Mínimo de 8 caracteres, com letras e números.</div></div>
+        <div class="mb-3"><label class="form-label" for="confirma">Confirmar senha</label><input class="form-control" id="confirma" name="confirma" type="password" autocomplete="new-password" required></div>
+        <div id="formError" class="alert alert-danger" role="alert" hidden></div>
+        <button id="submitBtn" class="btn btn-success w-100" type="submit">Cadastrar</button>
+      </form>
+      <p class="text-center text-body-secondary mt-3 mb-0">Já tem conta? <a href="/login">Entrar</a></p>
+    </div>
+  </div>
+</section>

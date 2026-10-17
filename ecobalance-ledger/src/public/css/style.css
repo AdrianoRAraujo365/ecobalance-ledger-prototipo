@@ -1,0 +1,24 @@
+/* EcoBalance Ledger — complementos ao Bootstrap 5 (o tema claro/escuro usa data-bs-theme) */
+:root { --eb-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; --eb-grid: rgba(16,185,129,.07); }
+body { overflow-x: hidden; }
+[data-bs-theme="dark"] body { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) fixed; }
+.eb-mono { font-family: var(--eb-mono); }
+.eb-nav { background: color-mix(in srgb, var(--bs-body-bg) 88%, transparent); backdrop-filter: blur(14px); }
+.eb-logo { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 10px; background: linear-gradient(135deg, #34d399, #059669); }
+.eb-hero { background-image: linear-gradient(var(--eb-grid) 1px, transparent 1px), linear-gradient(90deg, var(--eb-grid) 1px, transparent 1px); background-size: 48px 48px; }
+.eb-alt, .eb-footer { background: var(--bs-tertiary-bg); }
+.eb-glass { backdrop-filter: blur(10px); background: color-mix(in srgb, var(--bs-body-bg) 60%, transparent); }
+.eb-ico { width: 52px; height: 52px; display: grid; place-items: center; font-size: 1.5rem; border-radius: 12px; background: var(--bs-success-bg-subtle); }
+.eb-sector { display: grid; grid-template-columns: auto 1fr minmax(60px, 90px) auto; gap: .75rem; align-items: center; padding: .6rem .8rem; border: 1px solid var(--bs-border-color); border-radius: .6rem; }
+.eb-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #10b981; animation: eb-pulse 2s infinite; }
+.eb-hash { font-family: var(--eb-mono); font-size: .8rem; }
+.eb-pre { background: var(--bs-tertiary-bg); border: 1px solid var(--bs-border-color); overflow-x: auto; }
+canvas { max-width: 100%; }
+td input.form-control { min-width: 78px; }
+.skip-link { position: absolute; left: -999px; top: 0; z-index: 2000; background: #10b981; color: #04130d; padding: .6rem 1rem; }
+.skip-link:focus { left: 8px; top: 8px; }
+:focus-visible { outline: 3px solid #38bdf8; outline-offset: 2px; }
+#conteudo:focus { outline: none; }
+@keyframes eb-pulse { 50% { opacity: .35; } }
+@media (max-width: 576px) { .eb-sector { grid-template-columns: auto 1fr auto; } .eb-sector .progress { display: none; } }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }

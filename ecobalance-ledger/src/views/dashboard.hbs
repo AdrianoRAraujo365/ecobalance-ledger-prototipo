@@ -1,0 +1,32 @@
+<section class="container py-4">
+  <div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-3">
+    <div><p class="eb-mono text-success text-uppercase small mb-0">Olá, {{user.nome}}</p><h1 class="h2 mb-0">Dashboard ESG</h1></div>
+    <div class="d-flex gap-2">
+      <a class="btn btn-outline-success" href="/calculadora">Calculadora</a>
+      {{#if can.writeESG}}<a class="btn btn-success" href="/esg">+ Novo indicador</a>{{/if}}
+    </div>
+  </div>
+
+  <div class="row g-3 mb-3" aria-live="polite">
+    <div class="col-6 col-lg-3"><div class="card h-100"><div class="card-body"><small class="text-body-secondary">Indicadores</small><div class="display-6 text-success" id="kpiQtd">–</div></div></div></div>
+    <div class="col-6 col-lg-3"><div class="card h-100"><div class="card-body"><small class="text-body-secondary">Score ESG (<span id="kpiAno">último ano</span>)</small><div class="display-6 text-success" id="kpiScore">–</div></div></div></div>
+    <div class="col-6 col-lg-3"><div class="card h-100"><div class="card-body"><small class="text-body-secondary">Variação de CO₂ (período)</small><div class="display-6 text-success" id="kpiCO2">–</div></div></div></div>
+    <div class="col-6 col-lg-3"><div class="card h-100"><div class="card-body"><small class="text-body-secondary">Seu perfil</small><div class="h5 text-success mt-2">{{user.perfilRotulo}}</div></div></div></div>
+  </div>
+
+  <div class="row g-3 mb-3">
+    <div class="col-lg-6"><div class="card h-100"><div class="card-body"><h2 class="h5">Score ESG médio por ano</h2><canvas id="chartScore" height="260" role="img" aria-label="Gráfico de linha do score ESG médio por ano"></canvas></div></div></div>
+    <div class="col-lg-6"><div class="card h-100"><div class="card-body"><h2 class="h5">Emissões de CO₂ por ano (t)</h2><canvas id="chartCO2" height="260" role="img" aria-label="Gráfico de linha das emissões de CO₂ por ano"></canvas></div></div></div>
+  </div>
+
+  <div class="card"><div class="card-body">
+    <h2 class="h5">Resumo anual</h2>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <caption class="visually-hidden">Médias dos indicadores por ano</caption>
+        <thead><tr><th scope="col">Ano</th><th scope="col" class="text-end">Registros</th><th scope="col" class="text-end">Score</th><th scope="col" class="text-end">CO₂ (t)</th><th scope="col" class="text-end">Reciclagem %</th><th scope="col" class="text-end">Diversidade %</th><th scope="col" class="text-end">Conformidade %</th></tr></thead>
+        <tbody id="resumoBody"><tr><td colspan="7" class="text-body-secondary">Carregando…</td></tr></tbody>
+      </table>
+    </div>
+  </div></div>
+</section>

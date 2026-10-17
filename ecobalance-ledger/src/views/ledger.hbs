@@ -1,0 +1,18 @@
+<section class="container py-4">
+  <div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-3">
+    <div><p class="eb-mono text-success text-uppercase small mb-0">Auditoria</p><h1 class="h2 mb-0">Ledger SHA-256</h1></div>
+    {{#if can.verifyLedger}}<button id="verifyBtn" class="btn btn-success" type="button">Verificar integridade</button>{{/if}}
+  </div>
+  <div id="verifyResult" class="alert d-none" role="status" aria-live="polite"></div>
+  <div class="card"><div class="card-body">
+    <h2 class="h5">Blocos (mais recentes primeiro)</h2>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <caption class="visually-hidden">Blocos do ledger</caption>
+        <thead><tr><th scope="col">#</th><th scope="col">Entidade</th><th scope="col">Hash do bloco</th><th scope="col">Hash anterior</th><th scope="col">Autor</th><th scope="col">Data</th></tr></thead>
+        <tbody id="blocksBody"><tr><td colspan="6" class="text-body-secondary">Carregando…</td></tr></tbody>
+      </table>
+    </div>
+    {{#unless can.verifyLedger}}<p class="small text-body-secondary mt-2 mb-0">A verificação de integridade é restrita a Auditor e Gerente.</p>{{/unless}}
+  </div></div>
+</section>

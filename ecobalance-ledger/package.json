@@ -1,0 +1,46 @@
+{
+  "name": "ecobalance-ledger",
+  "version": "1.0.0",
+  "description": "EcoBalance Ledger - Governança ESG, Modelo de Leontief e registro encadeado SHA-256 (Express + Sequelize + Handlebars + MySQL)",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "predev": "npm run build:frontends",
+    "start": "node src/server.js",
+    "dev:react": "vite --config clients/react/vite.config.js",
+    "dev:vue": "vite --config clients/vue/vite.config.js",
+    "build:react": "vite build --config clients/react/vite.config.js",
+    "build:vue": "vite build --config clients/vue/vite.config.js",
+    "build:frontends": "npm run build:react && npm run build:vue",
+    "db:migrate": "sequelize-cli db:migrate",
+    "db:migrate:undo": "sequelize-cli db:migrate:undo:all",
+    "db:seed": "sequelize-cli db:seed:all"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "express-handlebars": "^7.1.3",
+    "express-validator": "^7.2.0",
+    "helmet": "^7.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.11.4",
+    "sequelize": "^6.37.5",
+    "sequelize-cli": "^6.6.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "nodemon": "^3.1.7",
+    "vite": "^6.0.7",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "vue": "^3.5.13"
+  },
+  "keywords": [],
+  "author": ""
+}

@@ -1,0 +1,110 @@
+<section class="container py-4">
+  <div class="mb-3"><p class="eb-mono text-success text-uppercase small mb-0">Calculadora sustentável</p><h1 class="h2 mb-0">EcoBalance Calculator</h1></div>
+
+  <ul class="nav nav-tabs" id="abas" role="tablist">
+    <li class="nav-item" role="presentation"><button class="nav-link active" id="tab-leontief" data-bs-toggle="tab" data-bs-target="#pane-leontief" type="button" role="tab" aria-controls="pane-leontief" aria-selected="true">Leontief</button></li>
+    <li class="nav-item" role="presentation"><button class="nav-link" id="tab-score" data-bs-toggle="tab" data-bs-target="#pane-score" type="button" role="tab" aria-controls="pane-score" aria-selected="false">Score ESG</button></li>
+    <li class="nav-item" role="presentation"><button class="nav-link" id="tab-roi" data-bs-toggle="tab" data-bs-target="#pane-roi" type="button" role="tab" aria-controls="pane-roi" aria-selected="false">Simulador de ROI</button></li>
+  </ul>
+
+  <div class="tab-content pt-3">
+
+    <!-- LEONTIEF -->
+    <div class="tab-pane fade show active" id="pane-leontief" role="tabpanel" aria-labelledby="tab-leontief" tabindex="0">
+      <div class="card mb-3"><div class="card-body">
+        <h2 class="h5">X = (I − A)⁻¹ · D</h2>
+        <p class="text-body-secondary small">Informe os coeficientes técnicos (0 a 1) e a demanda final de cada setor. A matriz precisa atender ao critério de Hawkins-Simons.</p>
+        <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+          <label for="tamanho" class="form-label mb-0">Setores</label>
+          <select id="tamanho" class="form-select w-auto"><option>2</option><option selected>3</option><option>4</option><option>5</option><option>6</option></select>
+          <button id="exemploBtn" class="btn btn-outline-secondary" type="button">Carregar exemplo</button>
+        </div>
+        <form id="leontiefForm">
+          <div class="table-responsive"><table id="matrizTabela" class="table table-sm align-middle"></table></div>
+          <div id="leontiefError" class="alert alert-danger" role="alert" hidden></div>
+          <button class="btn btn-success" type="submit" id="calcBtn">Calcular</button>
+        </form>
+        <div id="resultado" class="mt-4" hidden aria-live="polite"></div>
+      </div></div>
+
+      {{#if can.writeLeontief}}
+      <div class="card mb-3"><div class="card-body">
+        <h2 class="h5">Cadastrar coeficiente técnico</h2>
+        <form id="entryForm">
+          <div class="row g-3">
+            <div class="col-md-3"><label class="form-label" for="setorOrigem">Setor de origem</label><input class="form-control" id="setorOrigem" name="setorOrigem" maxlength="120" required></div>
+            <div class="col-md-3"><label class="form-label" for="setorDestino">Setor de destino</label><input class="form-control" id="setorDestino" name="setorDestino" maxlength="120" required></div>
+            <div class="col-md-3"><label class="form-label" for="coeficiente">Coeficiente (0–1)</label><input class="form-control" id="coeficiente" name="coeficiente" type="number" min="0" max="1" step="0.0001" required></div>
+            <div class="col-md-3"><label class="form-label" for="demanda">Demanda final</label><input class="form-control" id="demanda" name="demanda" type="number" min="0" step="any" value="0"></div>
+          </div>
+          <div id="entryError" class="alert alert-danger mt-3" role="alert" hidden></div>
+          <button class="btn btn-success mt-3" type="submit">Salvar coeficiente</button>
+        </form>
+      </div></div>
+      {{/if}}
+
+      <div class="card"><div class="card-body">
+        <h2 class="h5">Coeficientes cadastrados</h2>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <caption class="visually-hidden">Coeficientes técnicos cadastrados</caption>
+            <thead><tr><th scope="col">Origem</th><th scope="col">Destino</th><th scope="col" class="text-end">Coeficiente</th><th scope="col" class="text-end">Demanda</th></tr></thead>
+            <tbody id="entriesBody"><tr><td colspan="4" class="text-body-secondary">Carregando…</td></tr></tbody>
+          </table>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- SCORE ESG -->
+    <div class="tab-pane fade" id="pane-score" role="tabpanel" aria-labelledby="tab-score" tabindex="0">
+      <div class="row g-3">
+        <div class="col-lg-6"><div class="card h-100"><div class="card-body">
+          <h2 class="h5">Parâmetros</h2>
+          <p class="small text-body-secondary">Simulação local (nada é salvo). Para registrar de fato, use <a href="/esg">Indicadores</a>.</p>
+          <div class="mb-3"><label class="form-label" for="sCO2">Emissões de CO₂ (t): <output id="sCO2v" class="eb-mono text-success">820</output></label><input class="form-range" id="sCO2" type="range" min="0" max="2400" step="10" value="820"></div>
+          <div class="mb-3"><label class="form-label" for="sRec">Reciclagem (%): <output id="sRecv" class="eb-mono text-success">78</output></label><input class="form-range" id="sRec" type="range" min="0" max="100" value="78"></div>
+          <div class="mb-3"><label class="form-label" for="sDiv">Diversidade (%): <output id="sDivv" class="eb-mono text-success">66</output></label><input class="form-range" id="sDiv" type="range" min="0" max="100" value="66"></div>
+          <div class="mb-0"><label class="form-label" for="sConf">Conformidade (%): <output id="sConfv" class="eb-mono text-success">94</output></label><input class="form-range" id="sConf" type="range" min="0" max="100" value="94"></div>
+        </div></div></div>
+        <div class="col-lg-6"><div class="card h-100"><div class="card-body" aria-live="polite">
+          <h2 class="h5">Resultado</h2>
+          <div class="display-3 text-success eb-mono" id="scoreTotal">–</div>
+          <p class="text-body-secondary mb-3">Score ESG integrado (0–100)</p>
+          <div id="scoreBars"></div>
+          <p class="small text-body-secondary mt-3 mb-0">Score = Ambiental×0,35 + Circularidade×0,15 + Social×0,20 + Governança×0,30; Ambiental = máx(0, 100 − CO₂/20).</p>
+        </div></div></div>
+      </div>
+    </div>
+
+    <!-- ROI -->
+    <div class="tab-pane fade" id="pane-roi" role="tabpanel" aria-labelledby="tab-roi" tabindex="0">
+      <div class="row g-3">
+        <div class="col-lg-6"><div class="card h-100"><div class="card-body">
+          <h2 class="h5">Mudanças técnicas (ΔB)</h2>
+          <div class="mb-3"><label class="form-label" for="rHw">Eficiência de Hardware (%): <output id="rHwv" class="eb-mono text-info">25</output></label><input class="form-range" id="rHw" type="range" min="0" max="50" value="25"></div>
+          <div class="mb-3"><label class="form-label" for="rEn">Economia de Energia (%): <output id="rEnv" class="eb-mono text-info">20</output></label><input class="form-range" id="rEn" type="range" min="0" max="40" value="20"></div>
+          <div class="mb-3"><label class="form-label" for="rAu">Automação de Processos (%): <output id="rAuv" class="eb-mono text-info">30</output></label><input class="form-range" id="rAu" type="range" min="0" max="60" value="30"></div>
+          <div class="mb-3"><label class="form-label" for="rInv">Investimento inicial (R$): <output id="rInvv" class="eb-mono text-info">R$ 1.000.000</output></label><input class="form-range" id="rInv" type="range" min="100000" max="5000000" step="100000" value="1000000"></div>
+          <div class="mb-0"><label class="form-label" for="rAnos">Horizonte de análise (anos): <output id="rAnosv" class="eb-mono text-info">10</output></label><input class="form-range" id="rAnos" type="range" min="1" max="15" value="10"></div>
+        </div></div></div>
+        <div class="col-lg-6"><div class="card h-100"><div class="card-body" aria-live="polite">
+          <h2 class="h5">Projeção de resultados</h2>
+          <div class="row text-center g-2 mb-3">
+            <div class="col-6"><div class="p-3 rounded border"><div class="h2 text-success eb-mono mb-0" id="rRoi">–</div><small class="text-body-secondary">ROI estimado (<span id="rAnosLbl">10</span> anos)</small></div></div>
+            <div class="col-6"><div class="p-3 rounded border"><div class="h2 text-info eb-mono mb-0" id="rPay">–</div><small class="text-body-secondary">Payback (meses)</small></div></div>
+          </div>
+          <dl class="row mb-3">
+            <dt class="col-7 fw-normal text-body-secondary">Variação de produção (ΔX)</dt><dd class="col-5 text-end eb-mono text-success" id="rDx">–</dd>
+            <dt class="col-7 fw-normal text-body-secondary">Economia anual</dt><dd class="col-5 text-end eb-mono text-success" id="rEco">–</dd>
+            <dt class="col-7 fw-normal text-body-secondary">Redução de CO₂</dt><dd class="col-5 text-end eb-mono text-success" id="rCo2">–</dd>
+          </dl>
+          <h3 class="h6">Contribuição de cada alavanca (sensibilidade)</h3>
+          <div id="rBars"></div>
+          <p class="small text-body-secondary mt-3 mb-0">Fórmula simplificada do protótipo (ver <code>index.html</code>); não substitui estudo de viabilidade.</p>
+        </div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="/js/calc.js"></script>
