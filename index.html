@@ -1,0 +1,72 @@
+##homepage inicial ecobalance ledger
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1713">
+  <meta name="description" content="Painel de sustentabilidade e matriz de insumo-produto EcoBalanceLedger.">
+  <link rel="icon" href="data:,">
+  <title>EcoBalanceLedger</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Navegação principal">
+      <a class="brand" href="#inicio" aria-label="EcoBalanceLedger, início">
+        <span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M25.8 5.5C16.6 5.7 8.3 8.8 7.3 16.2c-.7 5.2 3.3 8.9 7.8 8.1 7.4-1.4 10.3-9.5 10.7-18.8Z"/><path d="M6.4 27c3.1-6.2 7.7-10.6 14.2-14"/></svg></span>
+        <span><strong>EcoBalance</strong><small>LEDGER / ESG</small></span>
+      </a>
+      <div class="nav-label">ESPAÇO DE TRABALHO</div>
+      <nav class="side-nav">
+        <a class="nav-item active" href="#inicio"><span class="nav-icon">◫</span> Visão geral</a>
+        <a class="nav-item" href="#matriz"><span class="nav-icon">▦</span> Matriz de insumos</a>
+        <a class="nav-item" href="#equipe"><span class="nav-icon">♧</span> Acessos</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="workspace-card"><span class="status-dot"></span><div><strong>Ambiente de análise</strong><small>Dados de demonstração</small></div></div>
+        <button class="profile-button" data-open="login-dialog"><span class="avatar">EL</span><span class="profile-copy"><strong>Acessar conta</strong><small>Entrar no espaço</small></span><span class="arrow">↗</span></button>
+      </div>
+    </aside>
+
+    <main class="main-content" id="inicio">
+      <header class="topbar"><div class="breadcrumb"><span>Workspace</span><span class="crumb-slash">/</span><strong>Visão geral</strong></div><div class="top-actions"><span class="period-tag"><span class="status-dot"></span> Ciclo 2025</span><button class="icon-button mobile-login" data-open="login-dialog" aria-label="Entrar">↗</button><button class="user-chip" data-open="login-dialog"><span class="avatar small">EL</span><span>Entrar</span></button></div></header>
+
+      <section class="page-intro"><div><div class="eyebrow"><span class="eyebrow-line"></span> INTELIGÊNCIA DE IMPACTO</div><h1>Um balanço mais<br><span>consciente.</span></h1><p>Indicadores ambientais e interdependências produtivas, reunidos em um só lugar.</p></div><div class="intro-aside"><span class="mono-label">ÚLTIMA ATUALIZAÇÃO</span><strong>24 out, 2026</strong><small>Visão consolidada · Brasil</small></div></section>
+
+      <section class="metric-grid" aria-label="Indicadores de sustentabilidade">
+        <article class="metric-card featured"><div class="metric-top"><span>EMISSÕES DE CARBONO</span><span class="metric-glyph">↘</span></div><div class="metric-value">124<span> tCO₂e</span></div><div class="metric-foot"><span class="change positive">↓ 12,4%</span><span>vs. período anterior</span></div><div class="sparkline green" aria-hidden="true"><i style="--h:38%"></i><i style="--h:54%"></i><i style="--h:42%"></i><i style="--h:62%"></i><i style="--h:50%"></i><i style="--h:75%"></i><i style="--h:59%"></i><i style="--h:83%"></i><i style="--h:69%"></i><i style="--h:91%"></i><i style="--h:78%"></i><i style="--h:100%"></i></div></article>
+        <article class="metric-card"><div class="metric-top"><span>ENERGIA RENOVÁVEL</span><span class="metric-glyph gold">✳</span></div><div class="metric-value">68<span>%</span></div><div class="metric-foot"><span class="change positive">↑ 8,2%</span><span>da matriz energética</span></div><div class="metric-line"><span style="width:68%"></span></div><div class="metric-scale"><span>Meta anual</span><strong>75%</strong></div></article>
+        <article class="metric-card"><div class="metric-top"><span>RESÍDUOS RECICLADOS</span><span class="metric-glyph blue">↗</span></div><div class="metric-value">78<span>%</span></div><div class="metric-foot"><span class="change positive">↑ 15,0%</span><span>taxa de reaproveitamento</span></div><div class="metric-line blue-line"><span style="width:78%"></span></div><div class="metric-scale"><span>Meta anual</span><strong>85%</strong></div></article>
+        <article class="metric-card"><div class="metric-top"><span>CONFORMIDADE ESG</span><span class="metric-glyph">✓</span></div><div class="metric-value">96<span>%</span></div><div class="metric-foot"><span class="change positive">↑ 2,1%</span><span>requisitos atendidos</span></div><div class="metric-line gold-line"><span style="width:96%"></span></div><div class="metric-scale"><span>Referências</span><strong>GRI · ISO</strong></div></article>
+      </section>
+
+      <section class="overview-grid">
+        <article class="panel impact-panel"><div class="panel-heading"><div><div class="section-kicker">DESEMPENHO</div><h2>Trajetória de emissões</h2></div><span class="unit-tag">tCO₂e / ano</span></div><div class="chart-legend"><span><i></i> Emissões operacionais</span><span class="chart-goal"><i></i> Meta</span></div><div class="chart-area"><div class="y-labels"><span>180</span><span>140</span><span>100</span><span>60</span></div><div class="chart-main"><div class="chart-gridlines"><i></i><i></i><i></i><i></i></div><svg class="trend-chart" viewBox="0 0 720 190" preserveAspectRatio="none" role="img" aria-label="Gráfico de redução de emissões entre janeiro e dezembro"><defs><linearGradient id="area-fill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#9de3ae" stop-opacity=".24"/><stop offset="1" stop-color="#9de3ae" stop-opacity="0"/></linearGradient></defs><path class="area-path" d="M0 35 C45 47 55 60 90 56 S140 69 180 64 S230 89 270 81 S320 92 360 105 S410 99 450 118 S500 126 540 132 S590 143 630 150 S680 159 720 168 L720 190 L0 190Z"/><path class="line-path" d="M0 35 C45 47 55 60 90 56 S140 69 180 64 S230 89 270 81 S320 92 360 105 S410 99 450 118 S500 126 540 132 S590 143 630 150 S680 159 720 168"/><circle cx="720" cy="168" r="5" class="chart-point"/></svg><div class="x-labels"><span>JAN</span><span>MAR</span><span>MAI</span><span>JUL</span><span>SET</span><span>NOV</span></div></div></div><div class="chart-note"><span class="note-marker"></span><span>Redução consistente no ciclo atual</span><strong>−12,4%</strong></div></article>
+        <article class="panel focus-panel"><div class="panel-heading"><div><div class="section-kicker">OPORTUNIDADE</div><h2>Onde agir agora</h2></div><span class="spark-icon">✳</span></div><p class="focus-lead">Pequenas mudanças na cadeia podem reduzir o impacto em até <strong>14,2%</strong>.</p><div class="focus-list"><div class="focus-row"><span class="focus-icon cloud">◌</span><span><strong>Cloud & dados</strong><small>Maior consumo energético</small></span><span class="priority high">ALTA</span></div><div class="focus-row"><span class="focus-icon hardware">▣</span><span><strong>Hardware</strong><small>Resíduos eletrônicos</small></span><span class="priority medium">MÉDIA</span></div><div class="focus-row"><span class="focus-icon paper">❋</span><span><strong>Papel & celulose</strong><small>Potencial de circularidade</small></span><span class="priority low">BAIXA</span></div></div><a href="#matriz" class="text-link">Explorar matriz <span>↗</span></a></article>
+      </section>
+
+      <section class="matrix-section" id="matriz"><div class="matrix-heading"><div><div class="eyebrow"><span class="eyebrow-line"></span> MODELO DE LEONTIEF</div><h2>Matriz de insumo-produto</h2><p>Edite os coeficientes técnicos e acompanhe a produção calculada.</p></div><div class="matrix-actions"><button class="button button-quiet" data-open="recover-dialog">Esqueci a senha</button><button class="button button-primary" data-open="register-dialog"><span>＋</span> Cadastrar</button></div></div>
+        <article class="panel matrix-panel"><div class="matrix-toolbar"><div class="matrix-caption"><span class="matrix-live"></span><span>Coeficientes técnicos <strong>C</strong></span><span class="matrix-version">5 setores</span></div><div class="matrix-tools"><button class="button button-quiet compact" id="reset-matrix">Restaurar</button><button class="button button-quiet compact" id="add-sector"><span>＋</span> Setor</button></div></div><div class="table-scroll"><table class="matrix-table"><thead id="matrix-head"></thead><tbody id="matrix-body"></tbody></table></div><div class="matrix-footer"><div><span class="formula-label">MODELO</span><span class="formula">x = (I − C)<sup>−1</sup> · d</span></div><div class="production-total"><span>PRODUÇÃO TOTAL CALCULADA</span><strong id="production-total">—</strong></div></div></article>
+      </section>
+
+      <section class="team-section" id="equipe"><div class="team-heading"><div><div class="section-kicker">GOVERNANÇA DE ACESSO</div><h2>Equipe e permissões</h2><p>Cadastros desta demonstração ficam somente nesta sessão.</p></div><button class="button button-outline" data-open="register-dialog"><span>＋</span> Novo acesso</button></div><div class="panel team-panel"><div class="team-table-wrap"><table class="team-table"><thead><tr><th>USUÁRIO</th><th>PERFIL</th><th>ÁREA</th><th></th></tr></thead><tbody id="team-body"><tr class="empty-row"><td colspan="4">Nenhum acesso cadastrado nesta sessão.</td></tr></tbody></table></div><div class="team-note"><span>i</span> Para autenticação, recuperação de senha e persistência segura, conecte uma API protegida.</div></div></section>
+      <footer class="page-footer"><span>EcoBalanceLedger <i>·</i> Indicadores ilustrativos para demonstração</span><span>Base de referência <strong>Leontief</strong></span></footer>
+    </main>
+  </div>
+
+  <dialog class="modal" id="register-dialog"><form class="modal-card" id="register-form"><div class="modal-top"><span class="modal-mark">＋</span><button class="modal-close" type="button" data-close aria-label="Fechar">×</button></div><div class="section-kicker">GESTÃO DE ACESSO</div><h2>Cadastrar pessoa</h2><p>Crie um perfil para a equipe EcoBalanceLedger.</p><label>Nome completo<input name="name" autocomplete="name" required maxlength="100" placeholder="Ex.: Ana Costa"></label><label>E-mail corporativo<input name="email" type="email" autocomplete="email" required maxlength="160" placeholder="ana@empresa.com"></label><div class="form-row"><label>Perfil de acesso<select name="role" required><option value="">Selecione um perfil</option><option>Administrador de usuários</option><option>Analista de TI</option><option>Auditor</option><option>Stakeholder</option><option>Gerente de sustentabilidade</option></select></label><label>Área<input name="department" required maxlength="80" placeholder="Ex.: Sustentabilidade"></label></div><div class="form-note">O cadastro é demonstrativo e não configura uma conta autenticável.</div><button class="button button-primary submit-button" type="submit">Criar cadastro <span>↗</span></button></form></dialog>
+
+  <dialog class="modal" id="login-dialog"><form class="modal-card" id="login-form"><div class="modal-top"><span class="modal-mark">↗</span><button class="modal-close" type="button" data-close aria-label="Fechar">×</button></div><div class="section-kicker">ESPAÇO SEGURO</div><h2>Entrar na conta</h2><p>Acesse seu ambiente de sustentabilidade.</p><label>E-mail<input name="email" type="email" autocomplete="username" required placeholder="voce@empresa.com"></label><label>Senha<input name="password" type="password" autocomplete="current-password" required placeholder="Sua senha"></label><button class="inline-link forgot-link" type="button" data-open="recover-dialog" data-close-parent="login-dialog">Esqueci minha senha</button><button class="button button-primary submit-button" type="submit">Entrar <span>↗</span></button><div class="modal-bottom">Ainda não tem acesso? <button class="inline-link" type="button" data-open="register-dialog" data-close-parent="login-dialog">Cadastrar</button></div></form></dialog>
+
+  <dialog class="modal" id="recover-dialog"><form class="modal-card" id="recover-form"><div class="modal-top"><span class="modal-mark">↺</span><button class="modal-close" type="button" data-close aria-label="Fechar">×</button></div><div class="section-kicker">RECUPERAÇÃO DE ACESSO</div><h2>Redefinir senha</h2><p>Informe seu e-mail. O envio do link requer um serviço de autenticação conectado.</p><label>E-mail cadastrado<input name="email" type="email" autocomplete="email" required placeholder="voce@empresa.com"></label><button class="button button-primary submit-button" type="submit">Solicitar recuperação <span>↗</span></button></form></dialog>
+
+  <dialog class="modal" id="sector-dialog"><form class="modal-card" id="sector-form"><div class="modal-top"><span class="modal-mark">＋</span><button class="modal-close" type="button" data-close aria-label="Fechar">×</button></div><div class="section-kicker">MATRIZ DE INSUMO-PRODUTO</div><h2>Novo setor</h2><p>Adicione um setor à matriz para esta sessão.</p><label>Nome do setor<input name="name" required maxlength="40" placeholder="Ex.: Transporte"></label><label>Demanda final<input name="demand" type="number" min="0" step="0.1" value="1.0" required></label><button class="button button-primary submit-button" type="submit">Adicionar setor <span>↗</span></button></form></dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
